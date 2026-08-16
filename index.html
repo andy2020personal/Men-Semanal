@@ -1,0 +1,3039 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Menú Semanal</title>
+
+<style>
+
+:root{
+    --verde:#246b57;
+    --verde2:#3d9075;
+    --verde-claro:#eaf6f1;
+    --fondo:#f5f8f6;
+    --card:#ffffff;
+    --texto:#24332e;
+    --gris:#687770;
+    --borde:#dfe8e3;
+    --amarillo:#fff4d8;
+    --azul:#eaf3fb;
+    --morado:#f0ecff;
+    --rojo:#d85c62;
+    --sombra:0 12px 35px rgba(23,56,43,.08);
+}
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+    background:var(--fondo);
+    color:var(--texto);
+}
+
+body.dark{
+    --fondo:#101815;
+    --card:#17221e;
+    --texto:#eef6f2;
+    --gris:#a7b8b0;
+    --borde:#2b3a34;
+    --verde-claro:#19382f;
+    --amarillo:#3b321b;
+    --azul:#1b3040;
+    --morado:#2c2740;
+}
+
+
+/* =========================================
+   HERO
+========================================= */
+
+.hero{
+    background:linear-gradient(
+        135deg,
+        #205b49,
+        #429477
+    );
+
+    color:white;
+    padding:30px 20px 75px;
+}
+
+.hero-in{
+    max-width:1150px;
+    margin:auto;
+}
+
+.brand{
+    font-size:23px;
+    font-weight:800;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.brand b{
+    background:white;
+    color:var(--verde);
+    padding:10px;
+    border-radius:13px;
+}
+
+.hero h1{
+    font-size:42px;
+    margin:35px 0 8px;
+}
+
+.hero p{
+    margin:0;
+    opacity:.92;
+}
+
+
+/* =========================================
+   APP
+========================================= */
+
+.app{
+    max-width:1150px;
+    margin:-42px auto 40px;
+    padding:0 18px;
+}
+
+
+/* =========================================
+   TOOLBAR
+========================================= */
+
+.toolbar{
+    background:var(--card);
+    border:1px solid var(--borde);
+    border-radius:20px;
+    padding:15px;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    box-shadow:var(--sombra);
+}
+
+.search{
+    flex:1;
+    min-width:220px;
+
+    border:1px solid var(--borde);
+
+    background:var(--fondo);
+    color:var(--texto);
+
+    padding:13px 15px;
+
+    border-radius:13px;
+
+    outline:none;
+}
+
+.btn{
+    border:0;
+    background:var(--verde);
+    color:white;
+
+    padding:12px 15px;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-weight:700;
+}
+
+.btn.alt{
+    background:var(--verde-claro);
+    color:var(--verde);
+}
+
+
+/* =========================================
+   INFO
+========================================= */
+
+.notice{
+    background:var(--card);
+
+    border:1px solid var(--borde);
+
+    border-radius:20px;
+
+    padding:18px;
+
+    margin:18px 0;
+
+    box-shadow:var(--sombra);
+}
+
+.chips{
+    display:flex;
+    gap:8px;
+
+    overflow:auto;
+
+    margin-top:10px;
+}
+
+.chip{
+    background:var(--verde-claro);
+
+    color:var(--verde);
+
+    border-radius:30px;
+
+    padding:8px 12px;
+
+    font-size:13px;
+
+    white-space:nowrap;
+}
+
+
+/* =========================================
+   DÍAS
+========================================= */
+
+.days{
+    display:flex;
+
+    gap:8px;
+
+    overflow:auto;
+
+    padding:3px 0;
+
+    margin:18px 0;
+}
+
+.day{
+    border:1px solid var(--borde);
+
+    background:var(--card);
+
+    color:var(--gris);
+
+    padding:11px 16px;
+
+    border-radius:13px;
+
+    cursor:pointer;
+
+    white-space:nowrap;
+
+    font-weight:700;
+}
+
+.day.active{
+    background:var(--verde);
+
+    color:white;
+
+    border-color:var(--verde);
+}
+
+
+/* =========================================
+   FILTROS
+========================================= */
+
+.filters{
+    display:flex;
+
+    gap:8px;
+
+    overflow:auto;
+
+    padding:3px 0;
+}
+
+.filters button{
+    border:1px solid var(--borde);
+
+    background:var(--card);
+
+    color:var(--gris);
+
+    padding:9px 12px;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    white-space:nowrap;
+}
+
+.filters button.active{
+    background:var(--verde);
+
+    color:white;
+}
+
+
+/* =========================================
+   CARDS
+========================================= */
+
+.section-head{
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin:24px 0 14px;
+}
+
+.section-head h2{
+    margin:0;
+}
+
+.grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:16px;
+}
+
+.card{
+    position:relative;
+
+    background:var(--card);
+
+    border:1px solid var(--borde);
+
+    border-radius:20px;
+
+    padding:20px;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+    box-shadow:
+        0 5px 18px rgba(23,56,43,.05);
+}
+
+.card:hover{
+    transform:translateY(-4px);
+
+    box-shadow:var(--sombra);
+}
+
+.heart{
+    position:absolute;
+
+    right:14px;
+    top:14px;
+
+    border:0;
+
+    background:var(--fondo);
+
+    color:var(--gris);
+
+    border-radius:50%;
+
+    width:35px;
+    height:35px;
+
+    cursor:pointer;
+}
+
+.heart.on{
+    color:var(--rojo);
+}
+
+.icon{
+    font-size:30px;
+
+    margin-bottom:10px;
+}
+
+.type{
+    font-size:12px;
+
+    color:var(--gris);
+
+    text-transform:uppercase;
+
+    font-weight:800;
+}
+
+.name{
+    font-size:19px;
+
+    font-weight:800;
+
+    margin:6px 0;
+}
+
+.desc{
+    color:var(--gris);
+
+    font-size:14px;
+
+    line-height:1.45;
+}
+
+.meta{
+    display:flex;
+
+    gap:6px;
+
+    flex-wrap:wrap;
+
+    margin-top:13px;
+}
+
+.meta span{
+    font-size:11px;
+
+    padding:6px 8px;
+
+    border-radius:20px;
+
+    background:var(--verde-claro);
+
+    color:var(--verde);
+}
+
+
+/* =========================================
+   PANELES
+========================================= */
+
+.panel{
+    display:none;
+
+    background:var(--card);
+
+    border:1px solid var(--borde);
+
+    border-radius:20px;
+
+    padding:20px;
+
+    margin-top:18px;
+}
+
+.panel.show{
+    display:block;
+}
+
+
+/* =========================================
+   SUPERMERCADO
+========================================= */
+
+.shop-actions{
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:8px;
+
+    margin:15px 0;
+}
+
+.shopping-category{
+    margin-top:25px;
+}
+
+.shopping-category h3{
+    margin-bottom:10px;
+}
+
+.shopping-list{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:8px;
+}
+
+.shop-item{
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:12px;
+
+    border-radius:12px;
+
+    background:var(--fondo);
+
+    cursor:pointer;
+}
+
+.shop-item input{
+    width:18px;
+    height:18px;
+}
+
+.shop-item.checked{
+    opacity:.5;
+
+    text-decoration:line-through;
+}
+
+
+/* =========================================
+   PREPARACIÓN
+========================================= */
+
+.prep{
+    display:grid;
+
+    gap:10px;
+}
+
+.prep div{
+    padding:15px;
+
+    background:var(--verde-claro);
+
+    border-radius:12px;
+
+    line-height:1.5;
+}
+
+
+/* =========================================
+   FAVORITOS
+========================================= */
+
+.favorite-item{
+    padding:13px;
+
+    background:var(--fondo);
+
+    border-radius:12px;
+
+    margin-bottom:8px;
+
+    cursor:pointer;
+}
+
+
+/* =========================================
+   MODAL
+========================================= */
+
+.modal{
+    display:none;
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(16,36,29,.72);
+
+    z-index:20;
+
+    padding:15px;
+
+    overflow:auto;
+}
+
+.modal.show{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+}
+
+.box{
+    width:100%;
+
+    max-width:720px;
+
+    background:var(--card);
+
+    border-radius:25px;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.35);
+}
+
+.modal-top{
+    background:
+        linear-gradient(
+            135deg,
+            #205b49,
+            #429477
+        );
+
+    color:white;
+
+    padding:25px;
+
+    position:relative;
+}
+
+.close{
+    position:absolute;
+
+    right:15px;
+    top:15px;
+
+    border:0;
+
+    border-radius:50%;
+
+    width:36px;
+    height:36px;
+
+    cursor:pointer;
+}
+
+.modal-body{
+    padding:25px;
+}
+
+.modal-body h3{
+    color:var(--verde);
+
+    margin-top:25px;
+}
+
+.ingredients{
+    display:grid;
+
+    gap:7px;
+}
+
+.ingredient{
+    padding:9px 12px;
+
+    background:var(--verde-claro);
+
+    border-radius:10px;
+}
+
+.steps{
+    line-height:1.7;
+
+    padding-left:22px;
+}
+
+.tip{
+    padding:14px;
+
+    background:var(--amarillo);
+
+    border-radius:12px;
+
+    line-height:1.5;
+}
+
+.nutrition{
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:8px;
+}
+
+.nut{
+    background:var(--fondo);
+
+    padding:12px;
+
+    border-radius:12px;
+
+    text-align:center;
+}
+
+.nut b{
+    display:block;
+
+    font-size:17px;
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.footer{
+    text-align:center;
+
+    color:var(--gris);
+
+    font-size:12px;
+
+    padding:25px;
+
+    line-height:1.6;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media(max-width:800px){
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .hero h1{
+        font-size:31px;
+    }
+
+    .nutrition{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .shopping-list{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<header class="hero">
+
+<div class="hero-in">
+
+<div class="brand">
+    <b>🥗</b>
+    Menú Semanal
+</div>
+
+<h1>
+    Come mejor, sin complicarte.
+</h1>
+
+<p>
+    Menús prácticos para desayuno, comida y cena,
+    con opciones pensadas para llevar al trabajo.
+</p>
+
+</div>
+
+</header>
+
+
+<main class="app">
+
+
+<!-- =====================================
+     BARRA DE HERRAMIENTAS
+===================================== -->
+
+<div class="toolbar">
+
+<input
+    id="search"
+    class="search"
+    placeholder="🔎 Buscar comida, ingrediente o receta..."
+>
+
+<button
+    class="btn alt"
+    onclick="toggleDark()">
+    🌙 Modo oscuro
+</button>
+
+<button
+    class="btn alt"
+    onclick="showPanel('favorites')">
+    ♥ Favoritos
+</button>
+
+<button
+    class="btn alt"
+    onclick="showPanel('shopping')">
+    🛒 Supermercado
+</button>
+
+<button
+    class="btn alt"
+    onclick="showPanel('prep')">
+    📋 Preparación
+</button>
+
+<button
+    class="btn"
+    onclick="generarMenu()">
+    🔄 Nuevo menú
+</button>
+
+</div>
+
+
+<!-- =====================================
+     INFORMACIÓN
+===================================== -->
+
+<div class="notice">
+
+<strong>
+🌿 Enfoque del menú
+</strong>
+
+<div class="chips">
+
+<span class="chip">
+🧂 Bajo en sodio
+</span>
+
+<span class="chip">
+🍬 Sin azúcar añadida
+</span>
+
+<span class="chip">
+🍳 Sin frituras
+</span>
+
+<span class="chip">
+🥦 Más verduras
+</span>
+
+<span class="chip">
+🍗 Proteína magra
+</span>
+
+<span class="chip">
+🍱 Opciones para llevar
+</span>
+
+</div>
+
+</div>
+
+
+<!-- =====================================
+     DÍAS
+===================================== -->
+
+<div
+    class="days"
+    id="days">
+</div>
+
+
+<div class="section-head">
+
+<div>
+
+<h2 id="dayTitle">
+Lunes
+</h2>
+
+<small style="color:var(--gris)">
+Selecciona una comida para ver la receta
+</small>
+
+</div>
+
+</div>
+
+
+<!-- =====================================
+     FILTROS
+===================================== -->
+
+<div class="filters">
+
+<button
+    class="active"
+    data-filter="all">
+    Todo
+</button>
+
+<button
+    data-filter="lonche">
+    🍱 Para llevar
+</button>
+
+<button
+    data-filter="cena">
+    🌙 Cena ligera
+</button>
+
+<button
+    data-filter="15">
+    ⏱ ≤15 min
+</button>
+
+<button
+    data-filter="30">
+    ⏱ ≤30 min
+</button>
+
+</div>
+
+
+<div
+    class="grid"
+    id="grid">
+</div>
+
+
+<!-- =====================================
+     FAVORITOS
+===================================== -->
+
+<div
+    id="favorites"
+    class="panel">
+
+<h2>
+♥ Favoritos
+</h2>
+
+<div
+    id="favList">
+</div>
+
+</div>
+
+
+<!-- =====================================
+     SUPERMERCADO
+===================================== -->
+
+<div
+    id="shopping"
+    class="panel">
+
+<h2>
+🛒 Lista de supermercado
+</h2>
+
+<p style="color:var(--gris)">
+Lista calculada a partir del menú semanal.
+</p>
+
+
+<div class="shop-actions">
+
+<button
+    class="btn"
+    onclick="marcarTodo()">
+    ☑ Marcar todo
+</button>
+
+<button
+    class="btn alt"
+    onclick="desmarcarTodo()">
+    ☐ Desmarcar todo
+</button>
+
+<button
+    class="btn alt"
+    onclick="reiniciarLista()">
+    🔄 Reiniciar
+</button>
+
+<button
+    class="btn alt"
+    onclick="copiarLista()">
+    📋 Copiar lista
+</button>
+
+</div>
+
+
+<div
+    id="shopList">
+</div>
+
+</div>
+
+
+<!-- =====================================
+     PREPARACIÓN
+===================================== -->
+
+<div
+    id="prep"
+    class="panel">
+
+<h2>
+📋 Preparación semanal
+</h2>
+
+<div class="prep">
+
+<div>
+🥕
+<b>Domingo:</b>
+lavar y cortar verduras para varios días.
+</div>
+
+<div>
+🍗
+<b>Domingo:</b>
+cocinar varias porciones de pollo y refrigerarlas.
+</div>
+
+<div>
+🍚
+<b>Domingo:</b>
+preparar arroz y frijoles sin exceso de sal.
+</div>
+
+<div>
+🍱
+<b>Cada noche:</b>
+preparar el lonche del día siguiente.
+</div>
+
+<div>
+🧊
+<b>Trabajo:</b>
+transportar alimentos perecederos en una
+lonchera con refrigeración.
+</div>
+
+</div>
+
+</div>
+
+
+</main>
+
+
+<footer class="footer">
+
+Este sitio es una guía general y no sustituye
+un plan indicado por un médico o nutriólogo.
+
+<br><br>
+
+Las porciones, carbohidratos, grasas y calorías
+deben ajustarse individualmente.
+
+</footer>
+
+
+<!-- =====================================
+     MODAL
+===================================== -->
+
+<div
+    class="modal"
+    id="modal">
+
+<div class="box">
+
+<div class="modal-top">
+
+<button
+    class="close"
+    onclick="closeModal()">
+    ×
+</button>
+
+<div
+    id="mi"
+    style="font-size:34px">
+</div>
+
+<h2
+    id="mt">
+</h2>
+
+<div
+    id="mm">
+</div>
+
+</div>
+
+
+<div class="modal-body">
+
+<h3>
+🛒 Ingredientes
+</h3>
+
+<div
+    id="ing"
+    class="ingredients">
+</div>
+
+
+<h3>
+👩‍🍳 Preparación
+</h3>
+
+<ol
+    id="steps"
+    class="steps">
+</ol>
+
+
+<h3>
+📊 Información aproximada
+</h3>
+
+<div
+    id="nutrition"
+    class="nutrition">
+</div>
+
+
+<h3>
+💡 Consejo
+</h3>
+
+<div
+    id="tip"
+    class="tip">
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+
+/* =========================================
+   RECETAS
+========================================= */
+
+const RECETAS = {
+
+desayunos:[
+
+{
+tipo:"Desayuno",
+icono:"🍳",
+nombre:"Huevos con nopales y aguacate",
+descripcion:"Huevos con nopales, jitomate y cebolla.",
+tiempo:15,
+llevar:false,
+ingredientes:[
+"2 huevos",
+"½ taza de nopales",
+"½ jitomate",
+"Cebolla",
+"¼ aguacate",
+"2 tortillas de maíz"
+],
+pasos:[
+"Cocer los nopales.",
+"Saltear ligeramente jitomate y cebolla.",
+"Agregar los huevos.",
+"Cocinar con muy poco aceite.",
+"Servir con aguacate y tortillas."
+],
+tip:"Evita agregar sal adicional. Utiliza limón, cilantro o pimienta para dar sabor.",
+calorias:320,
+proteina:24,
+grasa:17,
+carbohidratos:25
+},
+
+{
+tipo:"Desayuno",
+icono:"🥣",
+nombre:"Avena con frutos rojos",
+descripcion:"Desayuno con fibra y sin azúcar añadida.",
+tiempo:10,
+llevar:true,
+ingredientes:[
+"½ taza de avena",
+"1 taza de leche de almendras sin azúcar",
+"½ taza de frutos rojos",
+"1 cucharada de nueces",
+"Canela"
+],
+pasos:[
+"Cocinar la avena con la leche.",
+"Agregar canela.",
+"Servir con frutos rojos.",
+"Agregar nueces."
+],
+tip:"No agregues miel, azúcar ni jarabes.",
+calorias:300,
+proteina:9,
+grasa:12,
+carbohidratos:38
+},
+
+{
+tipo:"Desayuno",
+icono:"🥑",
+nombre:"Tostadas de aguacate y huevo",
+descripcion:"Desayuno rápido y saciante.",
+tiempo:10,
+llevar:true,
+ingredientes:[
+"2 tostadas horneadas",
+"1 huevo cocido",
+"¼ aguacate",
+"Jitomate",
+"Limón"
+],
+pasos:[
+"Cocer el huevo.",
+"Aplastar el aguacate.",
+"Untarlo sobre las tostadas.",
+"Agregar huevo y jitomate."
+],
+tip:"Elige tostadas con bajo contenido de sodio.",
+calorias:300,
+proteina:12,
+grasa:16,
+carbohidratos:27
+},
+
+{
+tipo:"Desayuno",
+icono:"🍓",
+nombre:"Yogur natural con frutos rojos",
+descripcion:"Desayuno rápido para días ocupados.",
+tiempo:5,
+llevar:true,
+ingredientes:[
+"¾ taza de yogur natural sin azúcar",
+"½ taza de frutos rojos",
+"1 cucharada de nueces",
+"Canela"
+],
+pasos:[
+"Colocar el yogur.",
+"Agregar frutos rojos.",
+"Agregar nueces.",
+"Terminar con canela."
+],
+tip:"Revisa que el yogur no contenga azúcar añadida.",
+calorias:250,
+proteina:12,
+grasa:11,
+carbohidratos:26
+},
+
+{
+tipo:"Desayuno",
+icono:"🍳",
+nombre:"Omelette de verduras",
+descripcion:"Proteína y verduras para comenzar el día.",
+tiempo:15,
+llevar:false,
+ingredientes:[
+"2 huevos",
+"Champiñones",
+"Jitomate",
+"Espinaca",
+"¼ aguacate"
+],
+pasos:[
+"Saltear las verduras con poco aceite.",
+"Agregar los huevos batidos.",
+"Cocinar hasta que estén firmes.",
+"Servir con aguacate."
+],
+tip:"Puede acompañarse con una tortilla si corresponde a la cantidad de carbohidratos indicada.",
+calorias:290,
+proteina:20,
+grasa:18,
+carbohidratos:12
+}
+
+],
+
+
+comidas:[
+
+{
+tipo:"Comida",
+icono:"🍱",
+nombre:"Pollo con verduras y arroz",
+descripcion:"Lonche completo y práctico para el trabajo.",
+tiempo:30,
+llevar:true,
+ingredientes:[
+"120 g pechuga de pollo",
+"½ taza arroz integral cocido",
+"½ taza brócoli",
+"½ taza calabacita",
+"¼ aguacate",
+"Limón"
+],
+pasos:[
+"Cocinar el pollo a la plancha.",
+"Cocer el arroz sin exceso de sal.",
+"Cocinar las verduras al vapor.",
+"Colocar todo en un recipiente.",
+"Refrigerar hasta llevar al trabajo."
+],
+tip:"Utiliza una lonchera térmica con refrigeración.",
+calorias:500,
+proteina:40,
+grasa:18,
+carbohidratos:48
+},
+
+{
+tipo:"Comida",
+icono:"🌯",
+nombre:"Wrap de pollo y verduras",
+descripcion:"Lonche práctico para transportar.",
+tiempo:15,
+llevar:true,
+ingredientes:[
+"1 tortilla integral pequeña",
+"100 g pollo",
+"Lechuga",
+"Pepino",
+"Jitomate",
+"¼ aguacate",
+"Limón"
+],
+pasos:[
+"Calentar ligeramente la tortilla.",
+"Agregar pollo y verduras.",
+"Agregar aguacate.",
+"Enrollar.",
+"Refrigerar."
+],
+tip:"Evita mayonesa y aderezos altos en sodio.",
+calorias:390,
+proteina:31,
+grasa:15,
+carbohidratos:31
+},
+
+{
+tipo:"Comida",
+icono:"🍗",
+nombre:"Bowl de pollo, frijoles y verduras",
+descripcion:"Comida completa para llevar.",
+tiempo:25,
+llevar:true,
+ingredientes:[
+"100 g pollo",
+"⅓ taza frijoles",
+"½ taza verduras",
+"¼ aguacate",
+"1 tortilla",
+"Limón"
+],
+pasos:[
+"Cocinar el pollo.",
+"Calentar los frijoles.",
+"Cocinar las verduras.",
+"Colocar todo en un recipiente."
+],
+tip:"Preferir frijoles preparados en casa y sin manteca.",
+calorias:430,
+proteina:35,
+grasa:14,
+carbohidratos:39
+},
+
+{
+tipo:"Comida",
+icono:"🍲",
+nombre:"Picadillo de pollo con verduras",
+descripcion:"Se puede cocinar en cantidad para varios lonches.",
+tiempo:30,
+llevar:true,
+ingredientes:[
+"120 g pollo picado",
+"Calabacita",
+"Zanahoria",
+"Chayote",
+"Jitomate natural",
+"1 tortilla"
+],
+pasos:[
+"Cocinar el pollo.",
+"Agregar las verduras.",
+"Agregar jitomate natural.",
+"Cocinar hasta que estén suaves."
+],
+tip:"Evita cubitos de caldo y sazonadores altos en sodio.",
+calorias:380,
+proteina:34,
+grasa:12,
+carbohidratos:34
+},
+
+{
+tipo:"Comida",
+icono:"🥗",
+nombre:"Ensalada de pollo y garbanzos",
+descripcion:"Lonche fresco y fácil de transportar.",
+tiempo:15,
+llevar:true,
+ingredientes:[
+"100 g pollo",
+"⅓ taza garbanzos",
+"Lechuga",
+"Pepino",
+"Jitomate",
+"Limón"
+],
+pasos:[
+"Cortar el pollo.",
+"Mezclar verduras.",
+"Agregar garbanzos.",
+"Agregar pollo y limón."
+],
+tip:"Mantener refrigerada hasta consumir.",
+calorias:360,
+proteina:34,
+grasa:10,
+carbohidratos:32
+},
+
+{
+tipo:"Comida",
+icono:"🍋",
+nombre:"Pollo al limón con verduras",
+descripcion:"Comida completa sin frituras.",
+tiempo:25,
+llevar:true,
+ingredientes:[
+"120 g pollo",
+"Brócoli",
+"Calabacita",
+"Zanahoria",
+"Limón",
+"½ taza arroz"
+],
+pasos:[
+"Cocinar el pollo.",
+"Agregar limón.",
+"Cocinar verduras al vapor.",
+"Servir con arroz."
+],
+tip:"No empanizar ni freír.",
+calorias:470,
+proteina:39,
+grasa:11,
+carbohidratos:48
+}
+
+],
+
+
+cenas:[
+
+{
+tipo:"Cena",
+icono:"🥗",
+nombre:"Ensalada de pollo con verduras",
+descripcion:"Cena ligera con proteína.",
+tiempo:15,
+llevar:false,
+ingredientes:[
+"90 g pollo",
+"Lechuga",
+"Pepino",
+"Jitomate",
+"Zanahoria",
+"Limón",
+"1 cucharadita aceite de oliva"
+],
+pasos:[
+"Cortar verduras.",
+"Agregar pollo.",
+"Aliñar con limón y poco aceite."
+],
+tip:"Evita aderezos comerciales.",
+calorias:260,
+proteina:28,
+grasa:11,
+carbohidratos:15
+},
+
+{
+tipo:"Cena",
+icono:"🐟",
+nombre:"Pescado con calabacitas",
+descripcion:"Cena sencilla y baja en grasa.",
+tiempo:20,
+llevar:false,
+ingredientes:[
+"120 g pescado blanco",
+"1 taza calabacita",
+"Jitomate",
+"Cebolla",
+"Limón",
+"Pimienta"
+],
+pasos:[
+"Cocinar el pescado a la plancha.",
+"Cocinar las verduras.",
+"Servir con limón."
+],
+tip:"No freír el pescado.",
+calorias:250,
+proteina:29,
+grasa:8,
+carbohidratos:15
+},
+
+{
+tipo:"Cena",
+icono:"🥒",
+nombre:"Quesadillas de verduras",
+descripcion:"Cena sencilla con verduras.",
+tiempo:15,
+llevar:false,
+ingredientes:[
+"2 tortillas",
+"40 g queso panela",
+"Calabacita",
+"Champiñones",
+"Jitomate"
+],
+pasos:[
+"Cocinar las verduras.",
+"Agregar queso.",
+"Calentar las tortillas."
+],
+tip:"Usar queso en cantidad moderada y preferentemente bajo en sodio.",
+calorias:300,
+proteina:16,
+grasa:13,
+carbohidratos:29
+},
+
+{
+tipo:"Cena",
+icono:"🥣",
+nombre:"Sopa de verduras con pollo",
+descripcion:"Cena caliente y ligera.",
+tiempo:25,
+llevar:false,
+ingredientes:[
+"90 g pollo",
+"Calabacita",
+"Chayote",
+"Zanahoria",
+"Jitomate natural"
+],
+pasos:[
+"Cocer el pollo.",
+"Agregar verduras.",
+"Cocinar hasta que estén suaves."
+],
+tip:"Usa hierbas y especias en lugar de consomé en polvo.",
+calorias:230,
+proteina:27,
+grasa:6,
+carbohidratos:18
+},
+
+{
+tipo:"Cena",
+icono:"🌮",
+nombre:"Tacos de pollo con nopales",
+descripcion:"Cena mexicana sencilla.",
+tiempo:15,
+llevar:false,
+ingredientes:[
+"90 g pollo",
+"Nopales",
+"2 tortillas",
+"Jitomate",
+"Cilantro",
+"Limón"
+],
+pasos:[
+"Cocinar nopales.",
+"Agregar pollo.",
+"Servir en tortillas.",
+"Agregar cilantro y limón."
+],
+tip:"Evita salsas comerciales muy saladas.",
+calorias:290,
+proteina:28,
+grasa:9,
+carbohidratos:28
+},
+
+{
+tipo:"Cena",
+icono:"🥣",
+nombre:"Crema ligera de calabacita",
+descripcion:"Cena suave y sencilla.",
+tiempo:20,
+llevar:false,
+ingredientes:[
+"2 calabacitas",
+"½ taza leche descremada",
+"¼ cebolla",
+"Pimienta",
+"90 g pollo opcional"
+],
+pasos:[
+"Cocinar calabacita y cebolla.",
+"Licuar con leche.",
+"Calentar.",
+"Agregar pollo si se desea."
+],
+tip:"No agregar crema, mantequilla ni exceso de queso.",
+calorias:230,
+proteina:25,
+grasa:7,
+carbohidratos:22
+}
+
+]
+
+};
+
+
+/* =========================================
+   ESTADO
+========================================= */
+
+let menuSemana = {};
+
+let diaActual = "Lunes";
+
+let filtro = "all";
+
+let favoritos =
+    JSON.parse(
+        localStorage.getItem(
+            "menuFavoritos"
+        ) || "[]"
+    );
+
+let comprasMarcadas =
+    JSON.parse(
+        localStorage.getItem(
+            "menuCompras"
+        ) || "[]"
+    );
+
+
+const DIAS = [
+    "Lunes",
+    "Martes",
+    "Miércoles",
+    "Jueves",
+    "Viernes",
+    "Sábado",
+    "Domingo"
+];
+
+
+/* =========================================
+   GENERAR MENÚ
+========================================= */
+
+function mezclar(array){
+
+    return [...array]
+        .sort(
+            () => Math.random() - .5
+        );
+
+}
+
+
+function generarMenu(){
+
+    const desayunos =
+        mezclar(
+            RECETAS.desayunos
+        );
+
+    const comidas =
+        mezclar(
+            RECETAS.comidas
+        );
+
+    const cenas =
+        mezclar(
+            RECETAS.cenas
+        );
+
+
+    menuSemana = {};
+
+
+    DIAS.forEach(
+        (dia,index) => {
+
+            menuSemana[dia] = [
+
+                desayunos[
+                    index %
+                    desayunos.length
+                ],
+
+                comidas[
+                    index %
+                    comidas.length
+                ],
+
+                cenas[
+                    index %
+                    cenas.length
+                ]
+
+            ];
+
+        }
+    );
+
+
+    diaActual = "Lunes";
+
+    renderDias();
+
+    renderMenu();
+
+    generarListaSupermercado();
+
+    alert(
+        "✨ Se generó un nuevo menú semanal."
+    );
+
+}
+
+
+/* =========================================
+   RENDER DÍAS
+========================================= */
+
+function renderDias(){
+
+    const contenedor =
+        document.getElementById(
+            "days"
+        );
+
+
+    contenedor.innerHTML = "";
+
+
+    DIAS.forEach(
+        dia => {
+
+            const boton =
+                document.createElement(
+                    "button"
+                );
+
+
+            boton.className =
+                "day " +
+                (
+                    dia === diaActual
+                    ? "active"
+                    : ""
+                );
+
+
+            boton.textContent =
+                dia;
+
+
+            boton.onclick =
+                () => {
+
+                    diaActual =
+                        dia;
+
+                    renderDias();
+
+                    renderMenu();
+
+                };
+
+
+            contenedor.appendChild(
+                boton
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   RENDER MENÚ
+========================================= */
+
+function renderMenu(){
+
+    const grid =
+        document.getElementById(
+            "grid"
+        );
+
+
+    document.getElementById(
+        "dayTitle"
+    ).textContent =
+        diaActual;
+
+
+    const busqueda =
+        document.getElementById(
+            "search"
+        )
+        .value
+        .toLowerCase()
+        .trim();
+
+
+    const comidas =
+        menuSemana[diaActual]
+        .filter(
+            comida => {
+
+                let texto =
+                    (
+                        comida.nombre +
+                        " " +
+                        comida.descripcion +
+                        " " +
+                        comida.ingredientes.join(
+                            " "
+                        )
+                    )
+                    .toLowerCase();
+
+
+                const coincideBusqueda =
+                    !busqueda ||
+                    texto.includes(
+                        busqueda
+                    );
+
+
+                let coincideFiltro =
+                    true;
+
+
+                if(
+                    filtro ===
+                    "lonche"
+                ){
+
+                    coincideFiltro =
+                        comida.llevar;
+
+                }
+
+
+                if(
+                    filtro ===
+                    "cena"
+                ){
+
+                    coincideFiltro =
+                        comida.tipo ===
+                        "Cena";
+
+                }
+
+
+                if(
+                    filtro ===
+                    "15"
+                ){
+
+                    coincideFiltro =
+                        comida.tiempo <=
+                        15;
+
+                }
+
+
+                if(
+                    filtro ===
+                    "30"
+                ){
+
+                    coincideFiltro =
+                        comida.tiempo <=
+                        30;
+
+                }
+
+
+                return (
+                    coincideBusqueda &&
+                    coincideFiltro
+                );
+
+            }
+        );
+
+
+    if(
+        comidas.length === 0
+    ){
+
+        grid.innerHTML = `
+            <div class="empty">
+                No encontramos comidas
+                con esos filtros.
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    grid.innerHTML =
+        comidas
+        .map(
+            comida =>
+                crearCard(
+                    comida
+                )
+        )
+        .join("");
+
+}
+
+
+/* =========================================
+   CARD
+========================================= */
+
+function crearCard(
+    comida
+){
+
+    const esFavorito =
+        favoritos.includes(
+            comida.nombre
+        );
+
+
+    return `
+
+    <article
+        class="card"
+        onclick='abrirReceta(
+            ${JSON.stringify(
+                comida
+            )}
+        )'
+    >
+
+        <button
+            class="heart ${
+                esFavorito
+                ? "on"
+                : ""
+            }"
+            onclick='event.stopPropagation();
+            cambiarFavorito(
+                "${comida.nombre}"
+            )'
+        >
+
+            ${
+                esFavorito
+                ? "♥"
+                : "♡"
+            }
+
+        </button>
+
+
+        <div class="icon">
+            ${comida.icono}
+        </div>
+
+
+        <div class="type">
+            ${comida.tipo}
+        </div>
+
+
+        <div class="name">
+            ${comida.nombre}
+        </div>
+
+
+        <div class="desc">
+            ${comida.descripcion}
+        </div>
+
+
+        <div class="meta">
+
+            <span>
+                ⏱ ${comida.tiempo} min
+            </span>
+
+
+            ${
+                comida.llevar
+                ?
+                `
+                <span>
+                    🍱 Para llevar
+                </span>
+                `
+                :
+                ""
+            }
+
+
+            <span>
+                🧂 Bajo sodio
+            </span>
+
+        </div>
+
+    </article>
+
+    `;
+
+}
+
+
+/* =========================================
+   RECETA
+========================================= */
+
+function abrirReceta(
+    comida
+){
+
+    document.getElementById(
+        "mi"
+    ).textContent =
+        comida.icono;
+
+
+    document.getElementById(
+        "mt"
+    ).textContent =
+        comida.nombre;
+
+
+    document.getElementById(
+        "mm"
+    ).textContent =
+        `${comida.tipo} · ⏱ ${comida.tiempo} min`;
+
+
+    document.getElementById(
+        "ing"
+    ).innerHTML =
+        comida.ingredientes
+        .map(
+            ingrediente =>
+                `
+                <div class="ingredient">
+                    • ${ingrediente}
+                </div>
+                `
+        )
+        .join("");
+
+
+    document.getElementById(
+        "steps"
+    ).innerHTML =
+        comida.pasos
+        .map(
+            paso =>
+                `
+                <li>
+                    ${paso}
+                </li>
+                `
+        )
+        .join("");
+
+
+    document.getElementById(
+        "nutrition"
+    ).innerHTML = `
+
+        <div class="nut">
+            <small>
+                Calorías
+            </small>
+
+            <b>
+                ${comida.calorias} kcal
+            </b>
+        </div>
+
+
+        <div class="nut">
+            <small>
+                Proteína
+            </small>
+
+            <b>
+                ${comida.proteina} g
+            </b>
+        </div>
+
+
+        <div class="nut">
+            <small>
+                Grasas
+            </small>
+
+            <b>
+                ${comida.grasa} g
+            </b>
+        </div>
+
+
+        <div class="nut">
+            <small>
+                Carbohidratos
+            </small>
+
+            <b>
+                ${comida.carbohidratos} g
+            </b>
+        </div>
+
+    `;
+
+
+    document.getElementById(
+        "tip"
+    ).textContent =
+        comida.tip;
+
+
+    document.getElementById(
+        "modal"
+    ).classList.add(
+        "show"
+    );
+
+
+    document.body.style.overflow =
+        "hidden";
+
+}
+
+
+function closeModal(){
+
+    document.getElementById(
+        "modal"
+    ).classList.remove(
+        "show"
+    );
+
+
+    document.body.style.overflow =
+        "";
+
+}
+
+
+/* =========================================
+   FAVORITOS
+========================================= */
+
+function cambiarFavorito(
+    nombre
+){
+
+    if(
+        favoritos.includes(
+            nombre
+        )
+    ){
+
+        favoritos =
+            favoritos.filter(
+                item =>
+                    item !== nombre
+            );
+
+    }else{
+
+        favoritos.push(
+            nombre
+        );
+
+    }
+
+
+    localStorage.setItem(
+        "menuFavoritos",
+        JSON.stringify(
+            favoritos
+        )
+    );
+
+
+    renderMenu();
+
+    renderFavoritos();
+
+}
+
+
+/* =========================================
+   FAVORITOS PANEL
+========================================= */
+
+function renderFavoritos(){
+
+    const contenedor =
+        document.getElementById(
+            "favList"
+        );
+
+
+    let todas =
+        DIAS.flatMap(
+            dia =>
+                menuSemana[dia]
+        );
+
+
+    let lista =
+        todas.filter(
+            comida =>
+                favoritos.includes(
+                    comida.nombre
+                )
+        );
+
+
+    if(
+        lista.length === 0
+    ){
+
+        contenedor.innerHTML = `
+            <div class="empty">
+                Todavía no tienes
+                comidas favoritas.
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    contenedor.innerHTML =
+        lista
+        .map(
+            comida =>
+                `
+                <div
+                    class="favorite-item"
+                    onclick='abrirReceta(
+                        ${JSON.stringify(
+                            comida
+                        )}
+                    )'
+                >
+
+                    ♥
+                    ${comida.nombre}
+
+                </div>
+                `
+        )
+        .join("");
+
+}
+
+
+/* =========================================
+   LISTA DE SUPERMERCADO
+========================================= */
+
+const productos = {
+
+"Proteínas":[
+    "Pechuga de pollo",
+    "Pescado blanco",
+    "Huevos",
+    "Queso panela",
+    "Yogur natural sin azúcar"
+],
+
+"Verduras":[
+    "Nopales",
+    "Brócoli",
+    "Calabacita",
+    "Jitomate",
+    "Cebolla",
+    "Lechuga",
+    "Pepino",
+    "Zanahoria",
+    "Chayote",
+    "Champiñones",
+    "Espinaca",
+    "Cilantro"
+],
+
+"Frutas":[
+    "Frutos rojos",
+    "Plátano",
+    "Limón"
+],
+
+"Cereales y leguminosas":[
+    "Avena",
+    "Arroz integral",
+    "Frijoles",
+    "Garbanzos",
+    "Tortillas de maíz",
+    "Tortillas integrales",
+    "Tostadas horneadas"
+],
+
+"Grasas y extras":[
+    "Aguacate",
+    "Nueces",
+    "Aceite de oliva",
+    "Canela",
+    "Pimienta"
+],
+
+"Otros":[
+    "Leche de almendras sin azúcar"
+]
+
+};
+
+
+/* =========================================
+   CANTIDADES
+========================================= */
+
+const cantidades = {
+
+"Pechuga de pollo":
+    "1.2 kg",
+
+"Pescado blanco":
+    "500 g",
+
+"Huevos":
+    "12 piezas",
+
+"Queso panela":
+    "200 g",
+
+"Yogur natural sin azúcar":
+    "750 g",
+
+"Nopales":
+    "500 g",
+
+"Brócoli":
+    "500 g",
+
+"Calabacita":
+    "1 kg",
+
+"Jitomate":
+    "1 kg",
+
+"Cebolla":
+    "3 piezas",
+
+"Lechuga":
+    "1 pieza",
+
+"Pepino":
+    "4 piezas",
+
+"Zanahoria":
+    "500 g",
+
+"Chayote":
+    "3 piezas",
+
+"Champiñones":
+    "250 g",
+
+"Espinaca":
+    "1 bolsa",
+
+"Cilantro":
+    "1 manojo",
+
+"Frutos rojos":
+    "500 g",
+
+"Plátano":
+    "3 piezas",
+
+"Limón":
+    "10 piezas",
+
+"Avena":
+    "500 g",
+
+"Arroz integral":
+    "500 g",
+
+"Frijoles":
+    "500 g",
+
+"Garbanzos":
+    "500 g",
+
+"Tortillas de maíz":
+    "1 kg",
+
+"Tortillas integrales":
+    "1 paquete",
+
+"Tostadas horneadas":
+    "1 paquete",
+
+"Aguacate":
+    "5 piezas",
+
+"Nueces":
+    "150 g",
+
+"Aceite de oliva":
+    "250 ml",
+
+"Canela":
+    "1 frasco",
+
+"Pimienta":
+    "1 frasco",
+
+"Leche de almendras sin azúcar":
+    "1 litro"
+
+};
+
+
+/* =========================================
+   GENERAR SUPERMERCADO
+========================================= */
+
+function generarListaSupermercado(){
+
+    const contenedor =
+        document.getElementById(
+            "shopList"
+        );
+
+
+    contenedor.innerHTML = "";
+
+
+    Object.entries(
+        productos
+    )
+    .forEach(
+        ([categoria,
+          lista]) => {
+
+
+            const categoriaDiv =
+                document.createElement(
+                    "div"
+                );
+
+
+            categoriaDiv.className =
+                "shopping-category";
+
+
+            categoriaDiv.innerHTML = `
+
+                <h3>
+                    ${obtenerIconoCategoria(
+                        categoria
+                    )}
+                    ${categoria}
+                </h3>
+
+                <div
+                    class="shopping-list"
+                >
+                </div>
+
+            `;
+
+
+            const listaDiv =
+                categoriaDiv
+                .querySelector(
+                    ".shopping-list"
+                );
+
+
+            lista.forEach(
+                producto => {
+
+                    const id =
+                        producto
+                        .replace(
+                            /\s/g,
+                            "_"
+                        );
+
+
+                    const checked =
+                        comprasMarcadas
+                        .includes(
+                            producto
+                        );
+
+
+                    const item =
+                        document.createElement(
+                            "label"
+                        );
+
+
+                    item.className =
+                        "shop-item " +
+                        (
+                            checked
+                            ? "checked"
+                            : ""
+                        );
+
+
+                    item.innerHTML = `
+
+                        <input
+                            type="checkbox"
+                            ${
+                                checked
+                                ? "checked"
+                                : ""
+                            }
+                        >
+
+                        <span>
+                            <b>
+                                ${producto}
+                            </b>
+
+                            <br>
+
+                            <small>
+                                ${
+                                    cantidades[
+                                        producto
+                                    ] ||
+                                    ""
+                                }
+                            </small>
+                        </span>
+
+                    `;
+
+
+                    const checkbox =
+                        item.querySelector(
+                            "input"
+                        );
+
+
+                    checkbox.onchange =
+                        () => {
+
+                            if(
+                                checkbox.checked
+                            ){
+
+                                if(
+                                    !comprasMarcadas
+                                    .includes(
+                                        producto
+                                    )
+                                ){
+
+                                    comprasMarcadas
+                                    .push(
+                                        producto
+                                    );
+
+                                }
+
+                            }else{
+
+                                comprasMarcadas =
+                                    comprasMarcadas
+                                    .filter(
+                                        item =>
+                                            item !==
+                                            producto
+                                    );
+
+                            }
+
+
+                            localStorage.setItem(
+                                "menuCompras",
+                                JSON.stringify(
+                                    comprasMarcadas
+                                )
+                            );
+
+
+                            item.classList.toggle(
+                                "checked",
+                                checkbox.checked
+                            );
+
+                        };
+
+
+                    listaDiv.appendChild(
+                        item
+                    );
+
+                }
+            );
+
+
+            contenedor.appendChild(
+                categoriaDiv
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   ICONOS
+========================================= */
+
+function obtenerIconoCategoria(
+    categoria
+){
+
+    const iconos = {
+
+        "Proteínas":"🥩",
+
+        "Verduras":"🥦",
+
+        "Frutas":"🍓",
+
+        "Cereales y leguminosas":"🌾",
+
+        "Grasas y extras":"🥑",
+
+        "Otros":"🛒"
+
+    };
+
+
+    return (
+        iconos[categoria] ||
+        "🛒"
+    );
+
+}
+
+
+/* =========================================
+   MARCAR TODO
+========================================= */
+
+function marcarTodo(){
+
+    comprasMarcadas =
+        Object.values(
+            productos
+        )
+        .flat();
+
+
+    localStorage.setItem(
+        "menuCompras",
+        JSON.stringify(
+            comprasMarcadas
+        )
+    );
+
+
+    generarListaSupermercado();
+
+}
+
+
+/* =========================================
+   DESMARCAR
+========================================= */
+
+function desmarcarTodo(){
+
+    comprasMarcadas = [];
+
+
+    localStorage.setItem(
+        "menuCompras",
+        JSON.stringify(
+            comprasMarcadas
+        )
+    );
+
+
+    generarListaSupermercado();
+
+}
+
+
+/* =========================================
+   REINICIAR
+========================================= */
+
+function reiniciarLista(){
+
+    if(
+        !confirm(
+            "¿Quieres reiniciar la lista de supermercado?"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    comprasMarcadas = [];
+
+
+    localStorage.setItem(
+        "menuCompras",
+        JSON.stringify(
+            comprasMarcadas
+        )
+    );
+
+
+    generarListaSupermercado();
+
+}
+
+
+/* =========================================
+   COPIAR LISTA
+========================================= */
+
+function copiarLista(){
+
+    let texto =
+        "🛒 LISTA DE SUPERMERCADO\n\n";
+
+
+    Object.entries(
+        productos
+    )
+    .forEach(
+        ([categoria,
+          lista]) => {
+
+            texto +=
+                "\n" +
+                categoria +
+                "\n";
+
+
+            lista.forEach(
+                producto => {
+
+                    texto +=
+                        "☐ " +
+                        producto +
+                        " — " +
+                        (
+                            cantidades[
+                                producto
+                            ] ||
+                            ""
+                        ) +
+                        "\n";
+
+                }
+            );
+
+        }
+    );
+
+
+    navigator.clipboard
+    .writeText(
+        texto
+    )
+    .then(
+        () => {
+
+            alert(
+                "📋 Lista copiada."
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   PANELES
+========================================= */
+
+function showPanel(
+    panel
+){
+
+    [
+        "favorites",
+        "shopping",
+        "prep"
+    ]
+    .forEach(
+        id =>
+            document
+            .getElementById(
+                id
+            )
+            .classList.remove(
+                "show"
+            )
+    );
+
+
+    document
+    .getElementById(
+        panel
+    )
+    .classList.add(
+        "show"
+    );
+
+
+    if(
+        panel ===
+        "favorites"
+    ){
+
+        renderFavoritos();
+
+    }
+
+
+    if(
+        panel ===
+        "shopping"
+    ){
+
+        generarListaSupermercado();
+
+    }
+
+
+    document
+    .getElementById(
+        panel
+    )
+    .scrollIntoView({
+        behavior:"smooth"
+    });
+
+}
+
+
+/* =========================================
+   MODO OSCURO
+========================================= */
+
+function toggleDark(){
+
+    document.body
+    .classList
+    .toggle(
+        "dark"
+    );
+
+
+    localStorage.setItem(
+        "menuDark",
+        document.body
+        .classList
+        .contains(
+            "dark"
+        )
+    );
+
+}
+
+
+/* =========================================
+   BUSCADOR
+========================================= */
+
+document
+.getElementById(
+    "search"
+)
+.addEventListener(
+    "input",
+    renderMenu
+);
+
+
+/* =========================================
+   FILTROS
+========================================= */
+
+document
+.querySelectorAll(
+    ".filters button"
+)
+.forEach(
+    boton => {
+
+        boton.onclick =
+            () => {
+
+                document
+                .querySelectorAll(
+                    ".filters button"
+                )
+                .forEach(
+                    b =>
+                        b.classList
+                        .remove(
+                            "active"
+                        )
+                );
+
+
+                boton
+                .classList
+                .add(
+                    "active"
+                );
+
+
+                filtro =
+                    boton
+                    .dataset
+                    .filter;
+
+
+                renderMenu();
+
+            };
+
+    }
+);
+
+
+/* =========================================
+   MODAL
+========================================= */
+
+document
+.getElementById(
+    "modal"
+)
+.addEventListener(
+    "click",
+    event => {
+
+        if(
+            event.target.id ===
+            "modal"
+        ){
+
+            closeModal();
+
+        }
+
+    }
+);
+
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if(
+            event.key ===
+            "Escape"
+        ){
+
+            closeModal();
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   INICIO
+========================================= */
+
+if(
+    localStorage.getItem(
+        "menuDark"
+    ) === "true"
+){
+
+    document.body
+    .classList
+    .add(
+        "dark"
+    );
+
+}
+
+
+generarMenu();
+
+
+</script>
+
+</body>
+</html>
